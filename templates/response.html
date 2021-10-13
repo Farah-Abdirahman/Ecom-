@@ -1,0 +1,40 @@
+
+   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+{% if productlist| length ==0 %}
+    <p class="alert alert-info"> No Records Found, Try Search Again</p>
+{% elif productlist| length > 0%}
+   {{productlist|length}}  Records Found
+{% endif %}
+
+{% for row in productlist %}
+
+    <div class="col-md-4">
+
+            <a href="/single/{{row[0]}}">
+                <img src="../static/img/{{row[7]}}" alt="" width="150" height="150"><br>
+            </a>
+            <b class="prd-name">{{row[1]}}</b> <br>
+            <div class="prd-price">
+                <span class="mrp-price">KSh {{row[3]}}</span> <br>
+                <span class="offer-price">KSh {{row[3]}}</span>
+            </div>
+            <div class="prd-offer btn btn-default">
+                {{row[4]}} % OFF
+            </div>
+            <br>
+
+    </div>
+
+{% endfor %}
+
+</body>
+</html>

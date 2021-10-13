@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../static/css/style.css">
+    <!-- ==== GSAP CDN ==== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+<body>
+
+
+
+   <section class="wrapper">
+        <div class="left_container">
+            <nav>
+                <div class="logo_content">
+                    <img src="img/logo.png" alt="logo" class="nike_logo">
+                </div>
+                <ul class="nav_content">
+                    <li><a class="nav_links active" href="javascript:void(0)">man</a></li>
+                    <li><a class="nav_links" href="javascript:void(0)">women</a></li>
+                    <li><a class="nav_links" href="javascript:void(0)">kids</a></li>
+                    <li><a class="nav_links" href="javascript:void(0)">customize</a></li>
+                </ul>
+            </nav>
+            <br>
+            <main class="tools">
+                <div class="search">
+                    <input type="text" class="search_input" placeholder="Search here....">
+                    <button class="search_btn">
+                        <div class="slider">
+                            <i class="ri-search-line"></i>
+                        </div>
+                    </button>
+                </div>
+                <div class="discount">
+                    <span class="discount_percentage">50%</span>
+                    <div class="seprator"></div>
+                    <span class="save_up">Wow...save upto...</span>
+                </div>
+            </main>
+            <section> 
+                <main class="brand_type">
+                    <div class="large_text">
+                        <h2>stylish <br>sneakers</h2>
+                    </div>
+                    <div class="sliders">
+                        <button class="slider_btn" disabled>
+                            <i class="ri-arrow-left-s-line"></i>
+                        </button>
+                        <button class="slider_btn">
+                            <i class="ri-arrow-right-s-line"></i>
+                        </button>
+                    </div>
+                </main>
+            </section>
+            <br>
+             <a href="/topdeals">SELL ALL</a>
+            <BR>
+            <section class="bottom_shoes_slider">
+                    <ul class="bottom_shoes_card">
+
+                        {% for deal in deals %}
+                        <a href="/single/{{deal[0]}}">
+                        <li class="card_shoe">
+                            <div class="shoe_content">
+                                <img src="../static/img/{{deal[7]}}" alt="nike-air-force" class="shoe">
+                            </div>
+                            <div class="desc_product">
+                                <div class="transparent_bg">
+                                    <div class="add_to_cart">
+                                        <i class="ri-add-line"></i>
+                                    </div>
+                                </div>
+                                <div class="desc">
+                                    <span class="card_product_name">{{deal[1]}}</span>
+                                    <span>3 colors</span>
+                                    <span class="price"><i class="ri-money-euro-circle-line"></i> {{deal[3]}}</span>
+                                </div>
+                            </div>
+                        </li></a>
+
+
+
+
+                    {% endfor %}<br><br>
+
+                    </ul>
+            </section>
+        </div>
+
+
+	
+		<!-- right ontainer -->
+		<main class="right_container" class="bg-gradient-info">
+            <nav class="right_nav">
+                <ul class="right_nav_content">
+                    <li class="r_nav_links">
+                        model : Nike 456
+                    </li>
+                    <button class="cart_btn"><i class="ri-shopping-bag-fill"></i></button>
+                </ul>
+            </nav>
+            <section class="selected_product">
+                <div class="circle1">
+                    <div class="icon_">
+                        <i class="ri-add-line"></i>
+                        <div class="product_tag">
+                            <p class="offer1">99%</p>
+                            <p>comfortable</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="circle2">
+                    <div class="icon_">
+                        <i class="ri-add-line"></i>
+                        <div class="product_tag">
+                            <p class="offer2">rare high percentage</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="selected_product_content">
+                    <img src="../static/img/airmax3.png" alt="nike-air-max-90" class="selected_product_img">
+                </div>
+                <div class="size_product" style="" class="bg-gradient-danger">
+                    <main class="content">
+                        <ul class="size_list">
+                            <li class="size_item">
+                                <span>38</span>
+                            </li>
+                            <li class="size_item">
+                                <span>39</span>
+                            </li>
+                            <li class="size_item">
+                                <span>40</span>
+                            </li>
+                            <li class="size_item">
+                                <span>41</span>
+                            </li>
+                            <li class="size_item">
+                                <span>42</span>
+                            </li>
+                        </ul> <br><br>
+                        <div class="text">
+                            <h3 class="selected_product_text">nike air max 90</h3>
+                        </div>
+                        <div class="reviews">
+                            <span>reviews 1k+</span>
+                            <ul class="stars_list">
+                                <li><i class="ri-star-fill"></i></li>
+                                <li><i class="ri-star-fill"></i></li>
+                                <li><i class="ri-star-fill"></i></li>
+                                <li><i class="ri-star-fill"></i></li>
+                                <li><i class="ri-star-fill"></i></li>
+                            </ul>
+                        </div>
+                    </main>
+                </div>
+            </section>
+        </main>
+
+	</section>
+
+
+    <script src="../static/js/ps.js"></script>
+<script src="https://static.jamboshop.com/media/common/js/jquery.min.js">
+	</script>
+
+</body>
+</html>

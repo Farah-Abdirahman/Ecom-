@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+<body>
+<section class="row">
+    <div class="col-md-4">
+<!--        3 Bind brands, categories, colors-->
+        <h1>BRANDS</h1>
+        {% for brand in brands %}
+        <ul>
+            <li style="list-style:none;">
+                <input type="checkbox" value="{{brand[0]}}">{{brand[0]}}
+            </li>
+            </ul>
+        {% endfor %}
+
+           <h1>Categories</h1>
+        {% for category in categories %}
+        <ul>
+         <li style="list-style:none;">
+                <input type="checkbox" value="{{category[0]}}">{{category[0]}}
+            </li>
+            </ul>
+
+        {% endfor %}
+
+
+        <h1>Colors</h1>
+        {% for color in colors %}
+        <ul>
+            <li style="list-style:none;">
+                  <input type="checkbox" value="{{color[0]}}">{{color[0]}}
+            </li>
+        </ul>
+
+        {% endfor %}
+    </div>
+    <div class="col-md-8">
+            <div class="row filter_data">
+                 <!-- data from jquery come here-->
+            </div>
+    </div>
+
+</section>
+<script src="https://static.jamboshop.com/media/common/js/jquery.min.js">
+	</script>
+
+
+ <script type="text/javascript">
+<!-- 4. its triggers url:"/fetchrecords1", using jquery -->
+	$(document).ready(function(){
+		filter_data1();
+			  //alert('ok');
+		function filter_data1()
+         {
+                  $.ajax({
+                    url:"/fetchrecords1",
+                    method:"GET",
+                    data:null,
+                    success:function(data){
+                    //6. get data from returned fetchrecords1
+                        $('.filter_data').html(data);
+                        $(".filter_data").append(data.htmlresponse);
+                    }
+                  });
+                  }
+});
+</script>
+
+</body>
+</html>
