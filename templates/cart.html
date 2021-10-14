@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+</head>
+<body>
  {% if 'cart_item' in session %}
            <p><a id="btnEmpty" href="{{ url_for('.empty_cart') }}" class="btn btn-danger">Empty Cart</a></p>
             <table class="table table-hover">
@@ -19,22 +28,22 @@
                         <td class="col-sm-8 col-md-6">
                         <div class="media">
                             <a class="thumbnail pull-left" href="">
-                                <img class="media-object" width="80" height="80"
+                                <img class="media-object" width="150" height="150"
                                      src="../static/img/{{ session['cart_item'][key]['image_url'] }}"
                                      > </a>
-                             <div class="text-info">
-                                <h5>
-                                        {{ session['cart_item'][key]['product_name'] }} <br><br>
-                                        Brand <span class="text-warning">{{ session['cart_item'][key]['product_brand'] }}</span>
+                             <div class="text-muted">
+                               <i> <h5>
+                                        {{ session['cart_item'][key]['product_name'] }}
+                                        Brand <span class="text-info">{{ session['cart_item'][key]['product_brand'] }}</span>
 
-                                </h5>
+                                </h5></i>
                             </div>
                         </div></td>
-                        <td class="col-sm-1 col-md-1" style="text-align: center">
-                        <input type="email" class="form-control" value="{{ quantity }}">
+                        <td class=" col-md-3" style="text-align: center">
+                        <input type="email" class="form-control col-sm" value="{{ quantity }}">
                         </td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ product_cost }} </strong></td>
-                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ item_price }} </strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>KSH &nbsp{{ product_cost }} </strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>KSH &nbsp{{ item_price }} </strong></td>
                         <td class="col-sm-1 col-md-1">
                         <a href="{{ url_for('.delete_product', code=session['cart_item'][key]['product_id']) }}" class="btn btn-danger">
                             <span class="fa fa-trash"></span> Remove
@@ -46,8 +55,8 @@
                         <td class="text-right"><h5><strong>{{ session['all_total_quantity'] }}</strong></h5></td>
                     </tr>
                     <tr>
-                        <td colspan="3"><h3>Total</h3></td>
-                        <td colspan="2" class="text-right"><h3><strong>$ {{ session['all_total_price'] }}</strong></h3></td>
+                        <td colspan="3"><h4>Total</h4></td>
+                        <td colspan="2" class="text-right"><h4><strong>$ {{ session['all_total_price'] }}</strong></h4></td>
                     </tr>
                     <tr>
                         <td colspan="4">
@@ -80,3 +89,6 @@
           {% endif %}
         </div>
     </div>
+
+</body>
+</html>
