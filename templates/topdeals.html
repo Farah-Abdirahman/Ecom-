@@ -14,7 +14,7 @@
         {% for brand in brands %}
         <ul>
             <li style="list-style:none;">
-                <input type="checkbox" value="{{brand[0]}}">{{brand[0]}}
+                <input type="checkbox" class="get_value"  value="{{brand[0]}}">{{brand[0]}}
             </li>
             </ul>
         {% endfor %}
@@ -23,7 +23,7 @@
         {% for category in categories %}
         <ul>
          <li style="list-style:none;">
-                <input type="checkbox" value="{{category[0]}}">{{category[0]}}
+                <input type="checkbox" class="get_value2"  value="{{category[0]}}">{{category[0]}}
             </li>
             </ul>
 
@@ -34,7 +34,7 @@
         {% for color in colors %}
         <ul>
             <li style="list-style:none;">
-                  <input type="checkbox" value="{{color[0]}}">{{color[0]}}
+                  <input type="checkbox" class="get_value3" value="{{color[0]}}">{{color[0]}}
             </li>
         </ul>
 
@@ -68,6 +68,56 @@
                         $(".filter_data").append(data.htmlresponse);
                     }
                   });
+
+
+                  var action = 'fetch_data';
+                    $('.get_value, .get_value2, .get_value3').click(function() {
+                        let insert = [];
+                        let insert2 = [];
+                        let insert3 = [];
+
+                        $('.get_value').each(function() {
+                            if ($(this).is(":checked")) {
+                                insert.push($(this).val());
+                            }
+                        });
+
+                        $('.get_value2').each(function() {
+                            if ($(this).is(":checked")) {
+                                insert2.push($(this).val());
+                            }
+                        });
+
+                        $('.get_value3').each(function() {
+                            if ($(this).is(":checked")) {
+                                insert3.push($(this).val());
+                            }
+                        });
+
+
+
+                      var insert_string = insert.toString();
+                      var insert_string2 = insert2.toString();
+                      var insert_string3 = insert3.toString();
+
+
+                      $.ajax({
+                        url:"/fetchrecords1",
+                        method:"POST",
+                        data: {insert_string:insert_string, insert_string2:insert_string2, insert_string3:insert_string3},
+                        success:function(data){
+                            $('.filter_data').html(data);
+                            $(".filter_data").append(data.htmlresponse);
+                        }
+                      });
+                   });//end
+
+
+
+
+
+
+
                   }
 });
 </script>

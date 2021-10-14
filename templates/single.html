@@ -47,6 +47,14 @@
             <br>
             <div class="container">
     <section class="row">
+
+          <form action="/add" method="post">
+                                 <input type="hidden" name="code" value="{{row[0]}}"/>
+                                 <input type="number" name="quantity" placeholder="Qtty" class = "form-control" value="1" required>
+                                 <input type="submit"  value="ADD TO CART">
+              <h1>hfjhfjhfjh</h1>
+
+          </form>
         <div class="col-md-6">
             <img src="../static/img/{{row[7]}}" alt="" class="img-fluid" width="60%">
         </div>
@@ -57,14 +65,17 @@
 
                 <h5 class="text-warning">{{row[4]}}</h5> <br>
                 <b class="text-info"> <strike> {{row[5]}} </strike>  </b> <br>
-                <u>Updated {{row[7]}} </u><br>
+                <u>Updated {{row[7]}} </u>
 
 
         </div>
 
     </section>
+                <section class="wrapper">
+
+                </section>
                 <br><br><br><br><br><br><br><br>
-</div>
+
    <script src="../static/js/ps.js"></script>
 <script src="https://static.jamboshop.com/media/common/js/jquery.min.js">
 	</script>

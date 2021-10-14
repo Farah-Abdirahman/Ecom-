@@ -1,0 +1,82 @@
+ {% if 'cart_item' in session %}
+           <p><a id="btnEmpty" href="{{ url_for('.empty_cart') }}" class="btn btn-danger">Empty Cart</a></p>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th class="text-center">Unit Price</th>
+                        <th class="text-center">Price</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for key, val in session['cart_item'].items() %}
+                 {% set quantity = session['cart_item'][key]['quantity'] %}
+                 {% set product_cost = session['cart_item'][key]['product_cost'] %}
+                 {% set item_price = session['cart_item'][key]['total_price'] %}
+                    <tr>
+                        <td class="col-sm-8 col-md-6">
+                        <div class="media">
+                            <a class="thumbnail pull-left" href="">
+                                <img class="media-object" width="80" height="80"
+                                     src="../static/img/{{ session['cart_item'][key]['image_url'] }}"
+                                     > </a>
+                             <div class="text-info">
+                                <h5>
+                                        {{ session['cart_item'][key]['product_name'] }} <br><br>
+                                        Brand <span class="text-warning">{{ session['cart_item'][key]['product_brand'] }}</span>
+
+                                </h5>
+                            </div>
+                        </div></td>
+                        <td class="col-sm-1 col-md-1" style="text-align: center">
+                        <input type="email" class="form-control" value="{{ quantity }}">
+                        </td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ product_cost }} </strong></td>
+                        <td class="col-sm-1 col-md-1 text-center"><strong>${{ item_price }} </strong></td>
+                        <td class="col-sm-1 col-md-1">
+                        <a href="{{ url_for('.delete_product', code=session['cart_item'][key]['product_id']) }}" class="btn btn-danger">
+                            <span class="fa fa-trash"></span> Remove
+                        </a></td>
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="4"><h5>Total Quantity</h5></td>
+                        <td class="text-right"><h5><strong>{{ session['all_total_quantity'] }}</strong></h5></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><h3>Total</h3></td>
+                        <td colspan="2" class="text-right"><h3><strong>$ {{ session['all_total_price'] }}</strong></h3></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                        <a href="/" class="btn btn-info">
+                            <span class="fa fa-shopping-cart"></span> Continue Shopping
+                        </a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-md-6">
+
+                </div>
+
+            </div>
+          {% else %}
+            <br>
+           <div class="no-records alert alert-info">Your Cart is Empty, Please continue shopping</div>
+            <br>
+            <a href="/" class="btn btn-info">
+                            <span class="fa fa-shopping-cart"></span> Continue Shopping
+            </a>
+
+             <a href="/customer_account" class="btn btn-info">
+                            <span class="fa fa-user"></span> My Profile
+            </a>
+          {% endif %}
+        </div>
+    </div>
