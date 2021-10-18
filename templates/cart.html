@@ -64,7 +64,13 @@
                             <span class="fa fa-shopping-cart"></span> Continue Shopping
                         </a>
                         </td>
-                        <td>
+                         <td>
+                         {% if 'customer_id' in session %}
+                         {% else %}
+                            <a href="/customer_checkout" class="btn btn-info">
+                                 Checkout <span class="fa fa-check"></span>
+                            </a>
+                         {% endif %}
                         </td>
                     </tr>
                 </tbody>
