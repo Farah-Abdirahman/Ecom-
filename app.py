@@ -299,7 +299,7 @@ def proceed_checkout():
                     print('product name', product_name)
                     print('Total qtty', all_total_quantity)
                     print('Total price', all_total_price)
-                    email = session['email']
+                    email = session['tel']
                     #session
                     if not email:
                         flash('Sorry, Error Occured during checkout, Try Again', 'danger')
@@ -314,7 +314,8 @@ def proceed_checkout():
                             cursor.execute(sql, (product_name, individual_quantity, product_cost, email, order_code, mpesa_code, individual_price, all_total_price))
                             connection.commit()
 
-                        except:
+                        except Exception as e:
+                            print(e)
                             flash('Sorry, Error occured during checkout, Please try again','danger')
                             return redirect('/cart')
 
@@ -352,11 +353,11 @@ def customer_login():
         return redirect('/')
     else:
         if request.method == "POST":
-            phone = request.form['phone']
+            phone = request.form['tel']
             password = request.form['password']
             active = 'Yes'
             #check if email exists
-            sql = "select * from customers where phone = %s and active = %s"
+            sql = "select * from customers where tel = %s and active = %s"
             cursor = connection.cursor()
             cursor.execute(sql,(phone, active))
 
@@ -365,12 +366,12 @@ def customer_login():
                 return redirect('/customer_login')
             else:
                 row = cursor.fetchone()
-                hashed_password = row[5]
+                hashed_password = row[4]
                 #verify
                 status = verify_password(hashed_password, password)
                 if status == True:
                     #create session
-                    session['phone'] = row[4]
+                    session['tel'] = row[6]
                     session['customer_id'] = row[0]
                     session['fname'] = row[1]
                     session['lname'] = row[2]
@@ -385,17 +386,34 @@ def customer_login():
             return render_template('customer_login.html')
 import re
 
+
+@app.route('/logout')
+def logout():
+
+
+    if check_customer():
+        session.pop('customer_id')
+        session.pop('tel')
+        session.pop('fname')
+        session.pop('lname')
+        session.clear()
+        return redirect('/customer_login')
+    else:
+        session.clear()
+        return redirect('/customer_login')
+
+
 @app.route("/customer_register", methods = ['POST','GET'])
 def customer_register():
     if request.method == "POST":
             fname = request.form['fname']
             lname = request.form['lname']
-            surname = request.form['surname']
+
             email = request.form['email']
             password = request.form['password']
             password1 = request.form['password1']
 
-            phone = request.form['phone']
+            tel = request.form['tel']
 
 
             if password!=password1:
@@ -413,20 +431,20 @@ def customer_register():
             else:
                 cursor = connection.cursor()
                 # check if phone already exists
-                sql0 = 'select * from customers where phone = %s'
-                cursor.execute(sql0, (phone))
+                sql0 = 'select * from customers where tel = %s'
+                cursor.execute(sql0, (tel))
                 if cursor.rowcount > 0:
                     flash('Phone Already in use', 'warning')
                     return redirect('/customer_register')
                 else:
-                    sql = "INSERT INTO `customers`( `fname`, `lname`,  `email`, `password`, `tel') VALUES (%s,%s,%s,%s,%s,%s)"
+                    sql = "INSERT INTO `customers`( `fname`, `lname`,  `email`, `password`, `tel') VALUES (%s,%s,%s,%s,%s)"
                     try:
                         cursor.execute(sql, (
-                        fname, lname, surname, email, hash_password(password), phone, ))
+                        fname, lname,email, hash_password(password), tel, ))
                         connection.commit()
                         # send sms
                         from sms import sending
-                        sending(phone, fname)
+                        sending(tel, fname)
                         flash('Registration Successfull, Please Login', 'info')
                         return redirect('/customer_login')
                     except:

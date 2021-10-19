@@ -4,9 +4,9 @@ africastalking.initialize(
     api_key='e006d3d5bfb275e24057295b181c4b669f3dec17f7ab306b99c3285e1723c171'
 )
 sms = africastalking.SMS
-def sending(phone,fname):
+def sending(tel,fname):
     # TODO: Send message
-    recipients = [phone]
+    recipients = [tel]
     message = "Hi {}, Welcome to Nike Shop, For all your shopping experience".format(fname)
     sender = 'AFRICASTKNG' # Place your SenderID here
     try:
