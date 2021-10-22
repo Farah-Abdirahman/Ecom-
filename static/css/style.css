@@ -8,9 +8,7 @@ font-family: 'Inter', sans-serif;
 
 body{
 
-height: 100vh;
-width: 100%;
-overflow: hidden;
+
 
 }
 
@@ -36,7 +34,7 @@ button{
 	width: 100%;
 	height: 100%;
 	display: grid;
-	grid-template-columns: 65% 35%;
+	grid-template-columns: 100% ;
 
 }
 
@@ -198,8 +196,8 @@ nav{
 }
 .bottom_shoes_slider{
     width: 940px;
-    height: 200px;
-    position: absolute;
+    height: 400px;
+
     right: 30%;
     z-index: -1;
     margin-top: 1rem;

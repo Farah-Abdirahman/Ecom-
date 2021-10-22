@@ -225,16 +225,24 @@ def add_product_to_cart():
             all_total_price = 0
             all_total_quantity = 0
             session.modified = True
+            #if there is an item already
             if 'cart_item' in session:
+                #check if the product you are adding is already there
                 if row['product_id'] in session['cart_item']:
+
                     for key, value in session['cart_item'].items():
+                        #check if product is there
                         if row['product_id'] == key:
+                            #take the old quantity  which is in session with cart item and key quantity
                             old_quantity = session['cart_item'][key]['quantity']
+                            #add it with new quantity to get the total quantity and make it a session
                             total_quantity = old_quantity + _quantity
                             session['cart_item'][key]['quantity'] = total_quantity
+                            #now find the new price with the new total quantity and add it to the session
                             session['cart_item'][key]['total_price'] = total_quantity * row['product_cost']
 
                 else:
+                    #a new product added in the cart.Merge the previous to have a new cart item with two products
                     session['cart_item'] = array_merge(session['cart_item'], itemArray)
 
 
@@ -245,12 +253,14 @@ def add_product_to_cart():
                     all_total_price = all_total_price + individual_price
 
             else:
+                #if the cart is empty you add the whole item array
                 session['cart_item'] = itemArray
                 all_total_quantity = all_total_quantity + _quantity
+                #get total price by multiplyin the cost and the quantity
                 all_total_price = all_total_price + _quantity * row['product_cost']
 
 
-
+            #add total quantity and total price to a session
             session['all_total_quantity'] = all_total_quantity
             session['all_total_price'] = all_total_price
             return redirect(url_for('.cart'))
@@ -299,6 +309,7 @@ def proceed_checkout():
                     print('product name', product_name)
                     print('Total qtty', all_total_quantity)
                     print('Total price', all_total_price)
+                    print("=================")
                     email = session['tel']
                     #session
                     if not email:
@@ -325,6 +336,7 @@ def proceed_checkout():
                 try:
                     sql2 = 'update orders set all_total_price = %s where order_code = %s'
                     cursor = connection.cursor()
+                    #it updates all the products to have the same price in the same order in the all total price column
                     cursor.execute(sql2,(all_total_price, order_code))
                     connection.commit()
                     flash('Your Order is Complete, Please check your Orders in Your Profile','success')
@@ -437,10 +449,10 @@ def customer_register():
                     flash('Phone Already in use', 'warning')
                     return redirect('/customer_register')
                 else:
-                    sql = "INSERT INTO `customers`( `fname`, `lname`,  `email`, `password`, `tel') VALUES (%s,%s,%s,%s,%s)"
+                    sql = "INSERT INTO `customers`( `fname`, `lname`,  `email`, `password`, `tel`) VALUES (%s,%s,%s,%s,%s)"
                     try:
                         cursor.execute(sql, (
-                        fname, lname,email, hash_password(password), tel, ))
+                        fname, lname,email, hash_password(password), tel ))
                         connection.commit()
                         # send sms
                         from sms import sending
@@ -509,9 +521,14 @@ def delete_product(code):
         print(e)
 
 
+
+#set is list in a list
+
+
 def array_merge( first_array , second_array ):
      if isinstance( first_array , list) and isinstance( second_array , list ):
       return first_array + second_array
+     #takes the new product add to the existing and merge to have one array with two products
      elif isinstance( first_array , dict ) and isinstance( second_array , dict ):
       return dict( list( first_array.items() ) + list( second_array.items() ) )
      elif isinstance( first_array , set ) and isinstance( second_array , set ):
